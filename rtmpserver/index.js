@@ -43,18 +43,14 @@ mongoose.connect(dbUrl, {useUnifiedTopology: true, useNewUrlParser: true} , (err
 
 
 app.get('/streams', (req, res) => {
-  console.log('this piece ran')
   streams.find({}, (err, stream)  => {
-    console.log(stream);
     res.send(stream);
   })
 })
 
 app.get('/streams/:id', (req, res) => {
-  console.log('fetch stream first');
   const {id} = req.params;
-  streams.find({id: id}, (err, stream)  => {
-    console.log(stream);
+  streams.find({id: id}, (stream)  => {
     res.send(stream);
   })
 })
@@ -62,7 +58,15 @@ app.get('/streams/:id', (req, res) => {
 app.post('/streams/new', (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   const stream = new streams(req.body);
-  console.log(stream);
+  // stream.save((err) => {
+  //   if(err) {
+  //     sendStatus(500);
+  //   }
+  //   res.sendStatus(200);
+  // })
+  console.log(req.body);
+  //stream.insertOne(req.body);
+  console.log(req);
   stream.save((err) => {
     if(err) {
       sendStatus(500);
@@ -75,7 +79,6 @@ app.put('/streams/edit/:id', (req, res) => {
   res.header("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
   streams.findOneAndUpdate({id: req.params.id}, req.body, {returnNewDocument: true, useFindAndModify: false}, (error, result) => {
-    console.log(result);
     res.send(result)
   });
 })
