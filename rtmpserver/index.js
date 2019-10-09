@@ -61,7 +61,7 @@ app.post('/streams/new', (req, res) => {
     if(err) {
       sendStatus(500);
     }
-    res.sendStatus(200);
+    res.send(req.body);
   })
 })
 
