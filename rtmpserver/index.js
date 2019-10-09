@@ -1,9 +1,10 @@
 const NodeMediaServer = require('node-media-server');
 const express = require('express');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose').set('debug', true);;
 const path = require('path')
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
 
 const app = express();
 const http = require('http').Server(app);
@@ -32,8 +33,7 @@ const streamsDataSchema  = new mongoose.Schema({
   image: { url: String, width: Number, height: Number },
   username: String,
   streamerPic: String,
-  userId: String,
-  id: Number
+  userId: String
 },  { collection: 'Streams'})
 const streams = mongoose.model('Streams', streamsDataSchema); 
 
@@ -48,24 +48,21 @@ app.get('/streams', (req, res) => {
   })
 })
 
-app.get('/streams/:id', (req, res) => {
-  const {id} = req.params;
-  streams.find({id: id}, (stream)  => {
-    res.send(stream);
+app.get('/streams/show/:id', (req, res) => {
+  const { id } = req.params;
+  streams.find({"_id": new ObjectID(id)}, (stream, err)  => {
+    console.log("i found the stream")
+    console.log('this is updated right')
+
+    console.log(err);
+
+    res.send(err);
   })
 })
 
 app.post('/streams/new', (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   const stream = new streams(req.body);
-  // stream.save((err) => {
-  //   if(err) {
-  //     sendStatus(500);
-  //   }
-  //   res.sendStatus(200);
-  // })
-  console.log(req.body);
-  //stream.insertOne(req.body);
   console.log(req);
   stream.save((err) => {
     if(err) {
@@ -78,7 +75,7 @@ app.post('/streams/new', (req, res) => {
 app.put('/streams/edit/:id', (req, res) => {
   res.header("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  streams.findOneAndUpdate({id: req.params.id}, req.body, {returnNewDocument: true, useFindAndModify: false}, (error, result) => {
+  streams.findOneAndUpdate({id: req.params._id}, req.body, {returnNewDocument: true, useFindAndModify: false}, (error, result) => {
     res.send(result)
   });
 })
