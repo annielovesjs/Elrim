@@ -3,7 +3,6 @@ const express = require('express');
 const mongoose = require('mongoose').set('debug', true);;
 const path = require('path')
 const bodyParser = require('body-parser');
-const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 
 const app = express();
@@ -51,11 +50,6 @@ app.get('/streams', (req, res) => {
 app.get('/streams/show/:id', (req, res) => {
   const { id } = req.params;
   streams.find({"_id": new ObjectID(id)}, (stream, err)  => {
-    console.log("i found the stream")
-    console.log('this is updated right')
-
-    console.log(err);
-
     res.send(err);
   })
 })
@@ -63,7 +57,6 @@ app.get('/streams/show/:id', (req, res) => {
 app.post('/streams/new', (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   const stream = new streams(req.body);
-  console.log(req);
   stream.save((err) => {
     if(err) {
       sendStatus(500);
@@ -78,6 +71,17 @@ app.put('/streams/edit/:id', (req, res) => {
   streams.findOneAndUpdate({id: req.params._id}, req.body, {returnNewDocument: true, useFindAndModify: false}, (error, result) => {
     res.send(result)
   });
+})
+
+app.delete('/streams/delete/:id', (req, res) => {
+  const { id } = req.params;
+  streams.deleteOne({"_id": new ObjectID(id)}, (err, result) => {
+    if(err) {
+      console.log(err);
+    }
+    res.send(result);
+    // res.redirect('/')
+  })
 })
 
 const config = {
