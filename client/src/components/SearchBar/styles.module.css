@@ -1,0 +1,58 @@
+.search {
+    width: 50%;
+    align-self: center;
+    position: relative;
+    font-size: 1em;
+}
+
+.iconInput {
+    position: relative;
+    font-weight: 400;
+    font-style: normal;
+    display: inline-flex;
+    color: rgba(0,0,0,.87);
+    font-size: 1em;
+    width: 100%;
+}
+.prompt {
+    border-radius: 500rem;
+    padding-right: 2.67142857em;
+    margin: 0;
+    max-width: 100%;
+    flex: 1 0 auto;
+    outline: 0;
+    text-align: left;
+    line-height: 1.21428571em;
+    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    padding: .67857143em 1em;
+    background: #fff;
+    border: 1px solid rgba(34,36,38,.15);
+    color: rgba(0,0,0,.87);
+    transition: border-color .1s ease,-webkit-box-shadow .1s ease;
+    transition: box-shadow .1s ease,border-color .1s ease;
+    transition: box-shadow .1s ease,border-color .1s ease,-webkit-box-shadow .1s ease;
+    box-shadow: none;
+}
+
+.searchIcon {
+    display: inline-block;
+    opacity: 1;
+    margin: 0 .25rem 0 0;
+    width: 1.18em;
+    height: 1em;
+    font-family: Icons;
+    font-style: normal;
+    font-weight: 400;
+    text-decoration: inherit;
+    text-align: center;
+    backface-visibility: hidden;
+    font-size: 1em;
+    position: absolute;
+    right: 10px;
+    margin: 0 auto;
+    bottom: 40%;
+}
+
+.searchIcon:before {
+    content: "\f002";
+}
