@@ -6,5 +6,5 @@ import streamsReducer from '../reducers/streamsReducer';
 export default combineReducers({
     auth: authReducer,
     form: formReducer,
-    streams: streamsReducer
+    streams: streamsReducer //add messages: 
 })
