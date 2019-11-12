@@ -8,7 +8,6 @@ const streamsDataSchema  = new mongoose.Schema({
     streamerPic: String,
     userId: String
 },  { collection: 'Streams'});
+module.exports = mongoose.model('Streams', streamsDataSchema); 
 
-const streams = mongoose.model('Streams', streamsDataSchema); 
 
-export default streams;

@@ -1,4 +1,3 @@
-//todo -> convert require to imports 
 const NodeMediaServer = require('node-media-server');
 const express = require('express');
 const mongoose = require('mongoose').set('debug', true);
@@ -13,7 +12,9 @@ const server = http.listen(3001, () => {
   console.log('server is running on port', server.address().port);
  });
 
-import streams from './models/streamsDataSchema';
+const streams = require('./models/streamsDataSchema');
+console.log('get');
+console.log(streams);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}))
@@ -25,7 +26,6 @@ app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
      next();
 });
-
 
 const dbUrl = 'mongodb://annieisshort:sanniebb5@ds229088.mlab.com:29088/elrim';
 

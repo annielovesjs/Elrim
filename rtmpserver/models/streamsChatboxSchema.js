@@ -10,7 +10,6 @@ const streamsChatboxSchema = new mongoose.Schema({
     }]
 }, {collections: 'Chatboxes'});
 
-const chatboxes = mongoose.model('Chatboxes', streamsChatboxSchema);
+module.exports.chatboxes = mongoose.model('Chatboxes', streamsChatboxSchema);
 
-export default chatboxes;
 
